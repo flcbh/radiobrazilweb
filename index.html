@@ -903,6 +903,10 @@ footer {
   display: block;
   filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
 }
+.nav-logo-text {
+  font-family: var(--font-serif); font-size: 20px; font-weight: 700;
+  color: #fff; white-space: nowrap;
+}
 .hero-logo-wrap {
   margin-bottom: 32px;
   opacity: 0; animation: rise .9s var(--ease) .1s forwards;
@@ -1085,6 +1089,7 @@ footer {
 
 /* Contact section */
 #contact-section { background: var(--navy); padding: 108px 0; }
+#contact-section .sec-desc { margin: 18px auto 0; text-align: center; }
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 400px;
@@ -1233,6 +1238,7 @@ footer {
 <nav id="nav">
   <a href="#hero" class="nav-logo" aria-label="Radio Brazil Web — Home">
     <img data-logo="1" src="" alt="Radio Brazil Web" class="nav-logo-img" onerror="this.style.display='none'">
+    <span class="nav-logo-text">Radio <span style="color:var(--gold)">Brazil</span> Web</span>
   </a>
   <ul class="nav-links">
     <li><a href="#hero">Home</a></li>
@@ -1854,12 +1860,12 @@ footer {
 ================================================ -->
 <section id="contact-section">
   <div class="inner">
-    <div class="sec-head reveal" style="text-align:center">
+    <div class="sec-head" style="text-align:center">
       <div class="sec-kicker" style="justify-content:center">Entre em Contato</div>
       <h2 class="sec-title">Fale <em>Conosco</em></h2>
       <p class="sec-desc">Tem uma pergunta, sugestão ou pedido especial? Envie uma mensagem para a nossa equipe.</p>
     </div>
-    <div class="contact-grid reveal">
+    <div class="contact-grid" style="margin-top:48px">
       <form class="req-form" id="contactForm">
         <div class="form-row">
           <div class="field">
