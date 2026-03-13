@@ -526,6 +526,87 @@ input[type="range"]::-webkit-slider-runnable-track {
 .ti-label { font-size: 10px; color: var(--text-dim); margin-bottom: 2px; }
 
 /* ================================================================
+   LISTEN ON (Apps)
+================================================================ */
+#listen-on { background: var(--navy-light); }
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.app-card {
+  background: var(--navy-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 32px 24px 28px;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: 14px;
+  transition: transform var(--dur), box-shadow var(--dur), border-color var(--dur);
+  text-decoration: none; color: inherit;
+}
+.app-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(245,166,35,.5);
+  box-shadow: var(--shadow-gold);
+}
+.app-icon {
+  width: 72px; height: 72px; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 34px; flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.app-name {
+  font-family: var(--font-serif); font-size: 20px;
+  font-weight: 600; color: var(--white); line-height: 1.2;
+}
+.app-desc {
+  font-size: 12.5px; color: var(--text-dim);
+  font-weight: 300; line-height: 1.6;
+}
+.app-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid var(--border);
+  padding: 8px 18px; border-radius: 24px;
+  margin-top: auto;
+  transition: background var(--dur), border-color var(--dur), color var(--dur);
+}
+.app-card:hover .app-btn {
+  background: var(--gold); color: var(--navy);
+  border-color: var(--gold);
+}
+
+.stream-url-box {
+  margin-top: 52px;
+  background: var(--navy-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 32px 36px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 24px;
+}
+.stream-url-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+.stream-url-text {
+  font-family: monospace; font-size: 14px;
+  color: var(--text-soft); word-break: break-all;
+}
+.btn-copy {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--navy);
+  background: var(--gold); padding: 12px 24px;
+  border-radius: 24px; white-space: nowrap; flex-shrink: 0;
+  transition: background var(--dur), transform var(--dur);
+}
+.btn-copy:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* ================================================================
    SCHEDULE
 ================================================================ */
 #schedule { background: var(--navy); }
@@ -908,6 +989,7 @@ footer {
   <a href="#hero" class="nav-logo">Radio <span>Brazil</span> Web</a>
   <ul class="nav-links">
     <li><a href="#hero">Home</a></li>
+    <li><a href="#listen-on">Apps</a></li>
     <li><a href="#schedule">Schedule</a></li>
     <li><a href="#djs">DJs</a></li>
     <li><a href="#request">Request</a></li>
@@ -923,6 +1005,7 @@ footer {
 
 <div class="mobile-nav" id="mobile-nav">
   <a href="#hero">Home</a>
+  <a href="#listen-on">Apps</a>
   <a href="#schedule">Schedule</a>
   <a href="#djs">Our DJs</a>
   <a href="#request">Request a Song</a>
@@ -1047,6 +1130,99 @@ footer {
           <div><div class="ti-label">Open in</div>RealPlayer</div>
         </a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================
+     LISTEN ON — Available Apps
+================================================ -->
+<section id="listen-on" class="section">
+  <div class="inner">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Available Platforms</div>
+      <h2 class="sec-title">Listen <em>Everywhere</em></h2>
+      <p class="sec-desc">Open Radio Brazil Web in your favourite media player — all platforms supported, completely free.</p>
+    </div>
+
+    <div class="apps-grid">
+      <!-- iTunes / Apple Music -->
+      <a href="https://polaris.nucast.co.uk/download/137/152/itunes.pls" class="app-card reveal">
+        <div class="app-icon" style="background:linear-gradient(135deg,#FC3C44,#FF6B6B)">🎵</div>
+        <div class="app-name">Apple Music<br>/ iTunes</div>
+        <div class="app-desc">Open directly in iTunes or Apple Music on Mac, iPhone and iPad.</div>
+        <span class="app-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Open / Download
+        </span>
+      </a>
+
+      <!-- Winamp / VLC -->
+      <a href="https://polaris.nucast.co.uk/download/137/152/radio.m3u" class="app-card reveal d1">
+        <div class="app-icon" style="background:linear-gradient(135deg,#F57C00,#FF9800)">📻</div>
+        <div class="app-name">Winamp<br>/ VLC</div>
+        <div class="app-desc">M3U playlist compatible with Winamp, VLC, MediaMonkey and more.</div>
+        <span class="app-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Open / Download
+        </span>
+      </a>
+
+      <!-- Windows Media Player -->
+      <a href="https://polaris.nucast.co.uk/download/137/152/wmp.asx" class="app-card reveal d2">
+        <div class="app-icon" style="background:linear-gradient(135deg,#0078D4,#00BCF2)">🪟</div>
+        <div class="app-name">Windows<br>Media Player</div>
+        <div class="app-desc">ASX playlist for Windows Media Player on Windows 10 and 11.</div>
+        <span class="app-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Open / Download
+        </span>
+      </a>
+
+      <!-- RealPlayer -->
+      <a href="https://polaris.nucast.co.uk/download/137/152/realplayer.ram" class="app-card reveal d1">
+        <div class="app-icon" style="background:linear-gradient(135deg,#4CAF50,#81C784)">▶️</div>
+        <div class="app-name">RealPlayer</div>
+        <div class="app-desc">RAM playlist for RealPlayer — classic streaming media player.</div>
+        <span class="app-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Open / Download
+        </span>
+      </a>
+
+      <!-- Direct Browser -->
+      <a href="https://stream.radiobrazilweb.com:8757/stream" class="app-card reveal d2">
+        <div class="app-icon" style="background:linear-gradient(135deg,#673AB7,#9C27B0)">🌐</div>
+        <div class="app-name">Web Browser</div>
+        <div class="app-desc">Listen directly in any modern browser — no app required. 256 kbps.</div>
+        <span class="app-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Listen Now
+        </span>
+      </a>
+
+      <!-- ShoutCast Status -->
+      <a href="https://stream.radiobrazilweb.com:8757" target="_blank" class="app-card reveal d1">
+        <div class="app-icon" style="background:linear-gradient(135deg,#162D4F,#1A3A60)">📡</div>
+        <div class="app-name">Stream<br>Status</div>
+        <div class="app-desc">View live ShoutCast stream stats — listeners, bitrate and song history.</div>
+        <span class="app-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          View Status
+        </span>
+      </a>
+    </div>
+
+    <!-- Direct Stream URL box -->
+    <div class="stream-url-box reveal">
+      <div>
+        <div class="stream-url-label">Direct Stream URL</div>
+        <div class="stream-url-text">https://stream.radiobrazilweb.com:8757/stream</div>
+      </div>
+      <button class="btn-copy" id="copy-url-btn" onclick="copyStreamUrl()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy URL
+      </button>
     </div>
   </div>
 </section>
@@ -1608,6 +1784,18 @@ const co = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.3 });
 document.querySelectorAll('.stat-num[data-count]').forEach(el => co.observe(el));
+
+/* ——— Copy Stream URL ——— */
+function copyStreamUrl() {
+  navigator.clipboard.writeText('https://stream.radiobrazilweb.com:8757/stream')
+    .then(() => {
+      const btn = document.getElementById('copy-url-btn');
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => {
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy URL';
+      }, 2000);
+    });
+}
 
 /* ——— Request Form ——— */
 function handleRequest(e) {
