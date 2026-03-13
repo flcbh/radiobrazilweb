@@ -918,7 +918,7 @@ footer {
   position: absolute; inset: 0; z-index: 1;
   background-image: url('https://images.unsplash.com/photo-1476122248778-60a6a95dc99f?w=1920&auto=format&fit=crop&q=70');
   background-size: cover; background-position: center;
-  opacity: 0.10;
+  opacity: 0.22;
 }
 
 /* ================================================================
@@ -935,7 +935,7 @@ footer {
   position: absolute; inset: 0;
   background-image: url('https://images.unsplash.com/photo-1504279577054-acfeccf8fc52?w=1920&auto=format&fit=crop&q=60');
   background-size: cover; background-position: center;
-  opacity: 0.06;
+  opacity: 0.16;
 }
 .verse-section::after {
   content: '';
@@ -973,7 +973,7 @@ footer {
   position: absolute; inset: 0;
   background-image: url('https://images.unsplash.com/photo-1587702428842-7e2f5d4d3fcb?w=1920&auto=format&fit=crop&q=70');
   background-size: cover; background-position: center 40%;
-  opacity: 0.15;
+  opacity: 0.35;
 }
 .prayer-overlay {
   position: absolute; inset: 0;
@@ -1003,7 +1003,7 @@ footer {
   position: absolute; inset: 0; pointer-events: none;
   background-image: url('https://images.unsplash.com/photo-1543968996-ee822b8176ba?w=1400&auto=format&fit=crop&q=60');
   background-size: cover; background-position: center;
-  opacity: 0.04;
+  opacity: 0.12;
   z-index: 0;
 }
 #schedule .inner { position: relative; z-index: 1; }
@@ -1016,7 +1016,7 @@ footer {
   position: absolute; inset: 0; pointer-events: none;
   background-image: url('https://images.unsplash.com/photo-1434030216411-0b5816825727?w=1400&auto=format&fit=crop&q=60');
   background-size: cover; background-position: center;
-  opacity: 0.04;
+  opacity: 0.12;
 }
 #articles { position: relative; }
 #articles .inner { position: relative; z-index: 1; }
@@ -1120,6 +1120,7 @@ footer {
   <div class="bar-track">
     <div class="bar-label">&#9835; Now Playing</div>
     <div class="bar-title" id="bar-title" style="color:#FFD07A;font-weight:600">Connecting…</div>
+    <div class="bar-artist" id="bar-artist" style="font-size:11px;color:var(--text-dim);margin-top:2px"></div>
   </div>
 
   <div class="bar-eq" id="bar-eq">
@@ -1918,7 +1919,7 @@ applyVolume(80);
 /* ——— ShoutCast Metadata ——— */
 function loadMeta() {
   const base = 'https://stream.radiobrazilweb.com:8757';
-  fetch(base + '/7.html', { cache: 'no-store' })
+  fetch(base + '/7.html', { cache: 'no-store', mode: 'cors' })
     .then(r => r.text())
     .then(html => {
       /* ShoutCast 7.html format: Listeners,Status,Peak,Max,Unique,Bitrate,SongTitle */
@@ -1928,25 +1929,50 @@ function loadMeta() {
         const parts = raw.split(',');
         if (parts.length >= 7) {
           const song = parts.slice(6).join(',').trim();
-          if (song) update(song);
+          if (song) { update(song); return; }
         }
       }
+      throw new Error('no song');
     })
     .catch(() =>
       fetch(base + '/status-json.xsl', { cache: 'no-store' })
         .then(r => r.json())
         .then(d => {
           const src  = d?.icestats?.source;
-          const song = Array.isArray(src) ? src[0]?.title : src?.title;
-          if (song) update(song);
+          const raw  = Array.isArray(src) ? src[0]?.title : src?.title;
+          if (raw) { update(raw); return; }
+          throw new Error('no song');
         })
-        .catch(() => update('Radio Brazil Web — Live'))
+        .catch(() => {
+          /* JSONP fallback for CORS-restricted servers */
+          const id = 'sc_cb_' + Date.now();
+          window[id] = function(d) {
+            try {
+              const s = d?.icestats?.source;
+              const t = Array.isArray(s) ? s[0]?.title : s?.title;
+              if (t) update(t);
+            } catch(e) {}
+            delete window[id];
+            const sc = document.getElementById(id);
+            if (sc) sc.remove();
+          };
+          const sc = document.createElement('script');
+          sc.id = id;
+          sc.src = base + '/status-json.xsl?callback=' + id;
+          sc.onerror = function(){ delete window[id]; sc.remove(); };
+          document.head.appendChild(sc);
+        })
     );
 }
 
-function update(song) {
-  document.getElementById('bar-title').textContent    = song;
-  document.getElementById('player-track').textContent = song;
+function update(raw) {
+  /* parse "Artist - Song Title" or just "Song Title" */
+  var artist = '', title = raw;
+  var sep = raw.indexOf(' - ');
+  if (sep > 0) { artist = raw.substring(0, sep).trim(); title = raw.substring(sep + 3).trim(); }
+  document.getElementById('bar-title').textContent    = title;
+  document.getElementById('bar-artist').textContent   = artist;
+  document.getElementById('player-track').textContent = raw;
 }
 
 loadMeta();
