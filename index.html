@@ -532,8 +532,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 .apps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  justify-items: center;
 }
 
 .app-card {
@@ -651,6 +652,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 ================================================================ */
 #djs { padding: 108px 0; background: var(--navy-mid); overflow: hidden; }
 #djs .sec-head { padding: 0 48px; text-align: center; }
+#djs .sec-kicker { justify-content: center; }
 
 .dj-scroll { overflow-x: auto; padding: 16px 48px 48px; scrollbar-width: none; }
 .dj-scroll::-webkit-scrollbar { display: none; }
