@@ -1916,53 +1916,12 @@ document.getElementById('vol-bar').addEventListener('input',  e => applyVolume(+
 document.getElementById('vol-main').addEventListener('input', e => applyVolume(+e.target.value));
 applyVolume(80);
 
-/* ——— ShoutCast Metadata ——— */
+/* ——— ShoutCast Metadata (via same-domain proxy — sem CORS) ——— */
 function loadMeta() {
-  const base = 'https://stream.radiobrazilweb.com:8757';
-  fetch(base + '/7.html', { cache: 'no-store', mode: 'cors' })
-    .then(r => r.text())
-    .then(html => {
-      /* ShoutCast 7.html format: Listeners,Status,Peak,Max,Unique,Bitrate,SongTitle */
-      const body = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-      if (body) {
-        const raw   = body[1].replace(/<[^>]+>/g, '').trim();
-        const parts = raw.split(',');
-        if (parts.length >= 7) {
-          const song = parts.slice(6).join(',').trim();
-          if (song) { update(song); return; }
-        }
-      }
-      throw new Error('no song');
-    })
-    .catch(() =>
-      fetch(base + '/status-json.xsl', { cache: 'no-store' })
-        .then(r => r.json())
-        .then(d => {
-          const src  = d?.icestats?.source;
-          const raw  = Array.isArray(src) ? src[0]?.title : src?.title;
-          if (raw) { update(raw); return; }
-          throw new Error('no song');
-        })
-        .catch(() => {
-          /* JSONP fallback for CORS-restricted servers */
-          const id = 'sc_cb_' + Date.now();
-          window[id] = function(d) {
-            try {
-              const s = d?.icestats?.source;
-              const t = Array.isArray(s) ? s[0]?.title : s?.title;
-              if (t) update(t);
-            } catch(e) {}
-            delete window[id];
-            const sc = document.getElementById(id);
-            if (sc) sc.remove();
-          };
-          const sc = document.createElement('script');
-          sc.id = id;
-          sc.src = base + '/status-json.xsl?callback=' + id;
-          sc.onerror = function(){ delete window[id]; sc.remove(); };
-          document.head.appendChild(sc);
-        })
-    );
+  fetch('/nowplaying.php', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(d => { if (d.song) update(d.song); })
+    .catch(() => {});
 }
 
 function update(raw) {
