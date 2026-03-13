@@ -1861,23 +1861,23 @@ footer {
     </div>
     <div class="contact-grid reveal">
       <form class="req-form" id="contactForm">
-        <div class="req-row">
-          <div class="req-field">
-            <label class="req-label">SEU NOME</label>
-            <input class="req-input" type="text" id="c-name" placeholder="Ex. João Silva" required>
+        <div class="form-row">
+          <div class="field">
+            <label for="c-name">Seu Nome</label>
+            <input type="text" id="c-name" placeholder="Ex. João Silva" required>
           </div>
-          <div class="req-field">
-            <label class="req-label">EMAIL</label>
-            <input class="req-input" type="email" id="c-email" placeholder="voce@exemplo.com" required>
+          <div class="field">
+            <label for="c-email">Email</label>
+            <input type="email" id="c-email" placeholder="voce@exemplo.com" required>
           </div>
         </div>
-        <div class="req-field">
-          <label class="req-label">ASSUNTO</label>
-          <input class="req-input" type="text" id="c-subject" placeholder="Assunto da mensagem" required>
+        <div class="field">
+          <label for="c-subject">Assunto</label>
+          <input type="text" id="c-subject" placeholder="Assunto da mensagem" required>
         </div>
-        <div class="req-field">
-          <label class="req-label">MENSAGEM</label>
-          <textarea class="req-input req-textarea" id="c-message" placeholder="Escreva sua mensagem aqui..." required></textarea>
+        <div class="field">
+          <label for="c-message">Mensagem</label>
+          <textarea id="c-message" rows="5" placeholder="Escreva sua mensagem aqui..." required></textarea>
         </div>
         <button type="submit" class="req-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
