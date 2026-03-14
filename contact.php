@@ -16,7 +16,7 @@ $to      = 'info@radiobrazilweb.com';
 $headers = "From: noreply@radiobrazilweb.com\r\n"
          . "Reply-To: $email\r\n"
          . "Content-Type: text/plain; charset=utf-8\r\n";
-$body    = "Nome: $name\nEmail: $email\n\nMensagem:\n$message";
+$body    = "Name: $name\nEmail: $email\n\nMessage:\n$message";
 
 if (mail($to, $subject, $body, $headers)) {
     echo json_encode(['ok' => true]);
